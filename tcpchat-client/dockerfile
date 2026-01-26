@@ -1,13 +1,20 @@
-FROM golang:latest AS builder
+FROM rust:1.92.0 AS builder
 WORKDIR /app
 
-COPY . .
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o tcpchat-client main.go
+COPY ./Cargo.* ./
+
+RUN mkdir src && echo "fn main() {}" > src/main.rs
+RUN cargo build --release
+
+RUN rm -f src/main.rs
+COPY ./src ./src
+RUN cargo build --release
 
 
-FROM alpine:latest AS runner
+
+FROM debian:bookworm-slim AS runner
 WORKDIR /app
 
-COPY --from=builder /app/tcpchat-client ./
+COPY --from=builder /app/target/release/tcpchat-client /app
 
-ENTRYPOINT ["/app/tcpchat-client"]
+ENTRYPOINT [ "/app/tcpchat-client" ]

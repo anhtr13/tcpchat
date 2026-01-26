@@ -1,12 +1,12 @@
 # TCP-Chat
 
-A simple command-line chat application for communicating within a local network via TCP sockets.
+A simple command-line chat application for communicating within a local network via TCP socket.
 
 ## Getting Started
 
 ### Prerequisites:
 
-- [Go](https://go.dev/doc/install)+Rust or just [Docker](https://docs.docker.com/engine/install) installed
+- Rust or [Docker](https://docs.docker.com/engine/install) installed
 
 ### 2. Installation:
 
