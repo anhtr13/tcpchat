@@ -1,7 +1,7 @@
 use std::{env, sync::Arc};
 
 use local_ip_address::local_ip;
-use tcpchat_server::server::{handler::handler, server::Server};
+use tcpchat_server::tcpchat_server::{handler::handler, server::Server};
 use tokio::net::TcpListener;
 
 #[tokio::main]

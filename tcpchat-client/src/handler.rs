@@ -44,7 +44,9 @@ pub fn handle_user_input(mut writer: TcpStream) {
 
                 let m = create_message(e, args[1..].join(" "));
 
-                writer.write(m.as_bytes()).expect("Cannot write to socket");
+                writer
+                    .write_all(m.as_bytes())
+                    .expect("Cannot write to socket");
             }
         }
 

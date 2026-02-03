@@ -2,7 +2,7 @@ use std::{collections::HashMap, net::SocketAddr, sync::Arc};
 
 use tokio::sync::RwLock;
 
-use crate::server::client::Client;
+use crate::tcpchat_server::client::Client;
 
 pub struct Room {
     pub room_name: String,
@@ -18,20 +18,11 @@ impl Room {
     }
 
     pub async fn get_member(&self, mem_id: &SocketAddr) -> Option<Arc<Client>> {
-        self.members
-            .read()
-            .await
-            .get(mem_id)
-            .and_then(|c| Some(c.clone()))
+        self.members.read().await.get(mem_id).cloned()
     }
 
     pub async fn get_all_members(&self) -> Vec<Arc<Client>> {
-        self.members
-            .read()
-            .await
-            .values()
-            .map(|mem| mem.clone())
-            .collect()
+        self.members.read().await.values().cloned().collect()
     }
 
     pub async fn add_member(&self, mem: Arc<Client>) {

@@ -2,10 +2,18 @@ use std::{collections::HashMap, sync::Arc};
 
 use tokio::sync::RwLock;
 
-use crate::server::room::Room;
+use crate::tcpchat_server::room::Room;
 
 pub struct Server {
     rooms: Arc<RwLock<HashMap<String, Arc<Room>>>>,
+}
+
+impl Default for Server {
+    fn default() -> Self {
+        Self {
+            rooms: Arc::new(RwLock::new(HashMap::new())),
+        }
+    }
 }
 
 impl Server {
